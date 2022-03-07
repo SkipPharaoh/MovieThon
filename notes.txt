@@ -1,9 +1,9 @@
-Turn this into a Full-Stack MERN app. Follow the holiday app in the SEI1213/unit3/lessons guideline. 
+Turn this into a Full-Stack Django app.
 
 Use the https://developers.themoviedb.org/3/getting-started/introduction API ! 
 
 The Api Key is in your email
 
-Use Bulma or Bootstrap for styling!
+Use TailwindCSS for styling!
 
 Portfolio Project

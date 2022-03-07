@@ -19,6 +19,7 @@
 ### Stretch Goals
 
 ### Component Hierarchy 
+![](./Assets/component.png)
 
 ### Low-Fidelity Wireframes
-![]()
+![](./Assets/wireframes.png)

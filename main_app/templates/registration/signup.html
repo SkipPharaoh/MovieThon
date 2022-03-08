@@ -1,4 +1,6 @@
+{% extends 'base.html'%}
 
+{% block content %}
 
 <h1 class="title"> Sign up for MovieThon! </h1>
 <form action="{% url 'signup' %}" method="post">
@@ -8,3 +10,5 @@
     <input type="submit" value="signup" />
     <input type="hidden" name="next" value="{{ next }}" />
 </form>
+
+{% endblock %}

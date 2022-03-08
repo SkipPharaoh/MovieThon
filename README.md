@@ -12,7 +12,7 @@ Django, PostgreSQL TailwindCSS, HTML, Netlify, & TMDB API
 #### API
 You can find the TMDB API [here](https://www.themoviedb.org/documentation/api)
 
-### Getting Started/Installation Instructions
+## Getting Started/Installation Instructions
 If you want to install this repo:
  1) Be sure to Fork this repo first. Forking it allows you to have a duplicate repo in your main github account. 
  2) On your Forked repo, hit the Code button (big green button) & copy the HTTPS link.

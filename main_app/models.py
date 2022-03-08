@@ -11,6 +11,8 @@ class Comment(models.Model):
 
 # Rate #
 # class Rate(models.Model):
-    
 
-#     like = models.IntegerChoices(1, 2, 3, 4, 5)
+#     class Like(models.IntegerChoices):
+#         NO = 0, _('No')
+#         YES = 1, _('Yes')
+

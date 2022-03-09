@@ -6,6 +6,7 @@
     {% for comment in object_list %}
         <li> {{ comment.user }} <br>
         <a href="{% url 'social_detail' comment.pk %}">{{ comment.body }}</a> </li>
+        <hr>
     
     {% endfor %}
 </ul>

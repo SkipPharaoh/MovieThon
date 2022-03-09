@@ -23,6 +23,15 @@ from django.utils.decorators import method_decorator
 class Home(TemplateView):
     template_name="home.html"
 
+# Watchlist
+class Watchlist(TemplateView):
+    template_name="watchlist.html"
+
+
+# Profile
+class Profile(TemplateView):
+    template_name="profile.html" 
+
 
 # Signup
 class Signup(View):

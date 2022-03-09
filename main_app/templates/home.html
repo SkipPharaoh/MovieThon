@@ -2,8 +2,19 @@
 
 {% block content %}
 
-<h1>
+<h1 class="title">
     MovieThon Home Page Rendering
 </h1>
+{% if user.is_authenticated %}
+    <div class="Welcome">
+        <span class="Message">Welcome: {{user.username}}</span>
+        <a class="navbar-item" href="{% url 'logout' %}">Logout</a>
+    </div>
+{% else %}
+    <div class="Signup">
+        <a class="options" href="{% url 'login' %}">Log In</a>
+        <a class="options" href="{% url 'signup' %}">Signup</a>
+    </div>
+{% endif %}
 
 {% endblock %}

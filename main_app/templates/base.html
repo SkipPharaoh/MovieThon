@@ -41,12 +41,12 @@
             
                 <!-- WATCHLIST -->
                 <div class="navbar-menu navbar-end">
-                    <a class="navbar-item" href="/accounts/watchlist">Watchlist</a>
+                    <a class="navbar-item" href="/profile/watchlist">Watchlist</a>
                 </div>
 
                 <div class="navbar-menu navbar-end">
                     <!-- PROFILE -->
-                    <a class="navbar-item" href="/accounts/profile">{{user.first_name }}</a>
+                    <a class="navbar-item" href="/profile/">{{user.first_name }}</a>
                     <!-- <span class="navbar-item">Welcome: {{user.username}}</span> -->
                     <a class="navbar-item" href="{% url 'logout' %}">Logout</a>
                 </div>

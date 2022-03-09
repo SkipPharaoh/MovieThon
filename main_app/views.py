@@ -1,9 +1,13 @@
 from re import template
+from xml.etree.ElementTree import Comment
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView
 from django.contrib import messages
+from .models import Comment, UserProfile
 
 # IMPORTS RELATED TO SIGNUP
 from django.contrib.auth import login
@@ -13,16 +17,29 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
+# Import For Fetch
+import requests
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-# from .models import UserProfile
-# from .models import Comments
+
+TMDB_API_KEY = os.getenv('TMDB_API_KEY')
+page = 1
 
 # VIEWS #
-
+                        # Movies #
 # Home
-class Home(TemplateView):
-    template_name="home.html"
+    # FETCH REQUEST #
+def home(request):
+    data = requests.get(f"https://api.themoviedb.org/3/movie/now_playing?api_key={TMDB_API_KEY}&language=en-US&page={page}").json()
+    return render(request, 'home.html', {'res': data})
 
+
+class MovieDetail(TemplateView):
+    template_name = "movie_detail.html"
+
+                        # USER MODEL #
 # Watchlist
 class Watchlist(TemplateView):
     template_name="watchlist.html"
@@ -30,11 +47,9 @@ class Watchlist(TemplateView):
 
 # Profile
 class Profile(TemplateView):
-    # def get(self, request, pk, *args, **kwargs):
+    def get(self, request, pk, *args, **kwargs):
+        return render(request, 'profile.html' )
 
-
-    
-    template_name="profile.html" 
 
 
 # Signup
@@ -60,23 +75,3 @@ class Signup(View):
 
             context = {'form': form}
             return render(request, "registration/signup.html", context)
-
-
-
-
-# Login
-# def login_user(request):
-#     if request.method == 'POST':
-#         username = request.POST['username']
-#         password = request.POST['password']
-#         user = authenticate(request, username=username, password=password)
-#         if user is not None:
-#             login(request, user)
-#             return redirect('home')
-
-#         else:
-#             messages.success(request, ("There Was An Error Logging In, Try Again..."))
-#             return redirect('login')
-        
-#     else:
-#         return render(request, 'registration/login.html', )

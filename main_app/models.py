@@ -3,15 +3,15 @@ from django.contrib.auth.models import User
 import time
 
 # Create your models here.
-# class UserProfile(models.Model):
+class UserProfile(models.Model):
 
-#     user = models.OneToOneField(User, related_name='profile', unique=True, on_delete=models.CASCADE)
-#     image = models.ImageField(upload_to="profile_image", blank=True, null=True)
-#     about = models.CharField(blank=True, max_length=250)
-#     city = models.CharField(max_length=64)
+    user = models.OneToOneField(User, related_name='profile', unique=True, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="profile_image", blank=True, null=True)
+    about = models.CharField(blank=True, max_length=250)
+    city = models.CharField(max_length=64)
 
-#     def __str__(self):
-#         return self.user 
+    def __str__(self):
+        return self.user 
 
 
 class Comment(models.Model):

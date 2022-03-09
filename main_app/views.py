@@ -30,6 +30,10 @@ class Watchlist(TemplateView):
 
 # Profile
 class Profile(TemplateView):
+    # def get(self, request, pk, *args, **kwargs):
+
+
+    
     template_name="profile.html" 
 
 

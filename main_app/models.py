@@ -16,13 +16,12 @@ class UserProfile(models.Model):
 
 class Comment(models.Model):
 
-    name = models.CharField(max_length=50)
     body = models.TextField(max_length=1000)
-    owner = models.ForeignKey(User, related_name='owner', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='owner', on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return self.body
 
     def get_length(self):
         return time.strftime("%M:%S", time.gmtime(self.length))

@@ -1,11 +1,9 @@
-from re import template
-from xml.etree.ElementTree import Comment
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from django.contrib import messages
 from .models import Comment, UserProfile
 
@@ -35,6 +33,13 @@ def home(request):
     data = requests.get(f"https://api.themoviedb.org/3/movie/now_playing?api_key={TMDB_API_KEY}&language=en-US&page={page}").json()
     return render(request, 'home.html', {'res': data})
 
+class HomeView(ListView):
+    model = Comment
+    template_name = 'social.html'
+
+class SocialView(DetailView):
+    model = Comment
+    template_name = 'social_detail.html'
 
 class MovieDetail(TemplateView):
     template_name = "movie_detail.html"

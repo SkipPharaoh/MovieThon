@@ -30,15 +30,20 @@
             </div>
 
             
-            <!-- SEARCHBAR -->
-            <div class="navbar-menu navbar-end">
-                <!-- Text input -->
-                <input type="text" class="container__input" placeholder='search for Movie'/>
-            </div>
-            
             <!-- LOGIN/LOGOUT BUTTON -->
             {% if user.is_authenticated %}
+
+            <!-- SEARCHBAR -->
+                <div class="navbar-menu navbar-end">
+                    <!-- Text input -->
+                    <input type="text" class="container__input" placeholder='search for Movie'/>
+                </div>
             
+                <!-- SOCIAL -->
+                <div class="navbar-menu navbar-end">
+                    <a class="navbar-item" href="/movies">Movies</a>
+                </div>
+
                 <!-- WATCHLIST -->
                 <div class="navbar-menu navbar-end">
                     <a class="navbar-item" href="/profile/watchlist">Watchlist</a>
@@ -46,7 +51,7 @@
 
                 <div class="navbar-menu navbar-end">
                     <!-- PROFILE -->
-                    <a class="navbar-item" href="/profile/">{{user.first_name }}</a>
+                    <a class="navbar-item" href="/profile/">{{user.username }}</a>
                     <!-- <span class="navbar-item">Welcome: {{user.username}}</span> -->
                     <a class="navbar-item" href="{% url 'logout' %}">Logout</a>
                 </div>

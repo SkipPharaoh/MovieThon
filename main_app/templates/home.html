@@ -8,10 +8,9 @@
 
 <!-- Account Holder See The Things Below -->
 {% if user.is_authenticated %}
-<div class="Welcome">
-    <span class="Message">Welcome: {{user.first_name}}</span>
-    <a class="navbar-item" href="{% url 'logout' %}">Logout</a>
-</div>
+<!-- <div class="Welcome">
+    <span class="Message">Welcome: {{user.username}}</span>
+</div> -->
 
 <!-- Now Playing Section -->
 <h1 class="title">Now Playing</h1>

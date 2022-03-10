@@ -7,6 +7,7 @@ from django.views.generic import DetailView, ListView
 from django.contrib import messages
 from .models import Comment, UserProfile
 from django.urls import reverse
+from .forms import CommentForm
 
 # IMPORTS RELATED TO SIGNUP
 from django.contrib.auth import login
@@ -45,7 +46,8 @@ class SocialView(DetailView):
 
 class AddCommentView(CreateView):
     model = Comment
-    fields = ['body']
+    form_class = CommentForm
+    # fields = ['body']
     template_name = 'add_comment.html'
     success_url = '/social/'
 

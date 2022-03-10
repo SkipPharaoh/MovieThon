@@ -6,6 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView, ListView
 from django.contrib import messages
 from .models import Comment, UserProfile
+from django.urls import reverse
 
 # IMPORTS RELATED TO SIGNUP
 from django.contrib.auth import login
@@ -40,6 +41,21 @@ class HomeView(ListView):
 class SocialView(DetailView):
     model = Comment
     template_name = 'social_detail.html'
+
+
+class AddCommentView(CreateView):
+    model = Comment
+    fields = ['body']
+    template_name = 'add_comment.html'
+    success_url = '/social/'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(AddCommentView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('social_detail', kwargs={'pk': self.object.pk})
+    
 
 class MovieDetail(TemplateView):
     template_name = "movie_detail.html"

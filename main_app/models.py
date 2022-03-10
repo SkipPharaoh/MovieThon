@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 import time
 
 # Create your models here.
@@ -25,6 +26,9 @@ class Comment(models.Model):
 
     def get_length(self):
         return time.strftime("%M:%S", time.gmtime(self.length))
+    
+    class Meta:
+        ordering = ['-timestamp']
 
 
 

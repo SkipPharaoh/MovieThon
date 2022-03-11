@@ -1,0 +1,28 @@
+{% extends 'base.html' %} 
+{% block title%} {{ comment.user}} - Edit Comment {% endblock %}
+{% block content %}
+
+
+<!-- LOGIN/LOGOUT BUTTON -->
+{% if user.is_authenticated %}
+
+<h1 class="title">Edit Comment</h1>
+<div class="form-group">
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p}}
+        <input type="submit" class="btn btn-info" value="Update"/>
+        <a href="{% url 'social_detail' comment.pk %}" class="btn btn-warning"> back</a>
+    </form>
+</div>
+
+
+<!-- Non Account Holder See Login/Signup Info Below -->
+{% else %}
+    <div class="Signup">
+        <a class="options" href="{% url 'login' %}">Log In</a>
+        <a class="options" href="{% url 'signup' %}">Signup</a>
+    </div>
+{% endif %}
+
+{% endblock %}

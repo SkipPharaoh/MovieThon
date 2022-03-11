@@ -10,8 +10,13 @@
 
 <ul>
     {% for comment in object_list %}
-        <li> {{ comment.user }} <br>
-        <a href="{% url 'social_detail' comment.pk %}">{{ comment.body }}</a> </li>
+        <li class="d-flex flex-column"> {{ comment.user }}
+            <p>{{ comment.body }}</p>
+            <small>
+                <a href="{% url 'social_detail' comment.pk %}">View Comment</a>
+                <a href="{% url 'update-comment' comment.pk %} " type='button'>Edit</a>
+            </small> 
+        </li>
         <hr>
     
     {% endfor %}

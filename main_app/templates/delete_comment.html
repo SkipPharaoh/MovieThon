@@ -1,0 +1,33 @@
+{% extends 'base.html' %} 
+{% block title%} {{ comment.user}} - Delete Comment {% endblock %}
+{% block content %}
+
+
+<!-- LOGIN/LOGOUT BUTTON -->
+{% if user.is_authenticated %}
+
+<h1 class="title">Delete Comment</h1>
+
+<h3>Delete: {{comment.body}} </h3>
+<div class="form-group">
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <strong>Are You Sure??</strong>
+        <div class="d-flex">
+            <a href="{% url 'social_detail' comment.pk %} " type='button' class="btn btn-info">Back</a>
+            <button class="btn btn-danger">Delete</button>
+        </div>
+    </form>
+</div>
+
+
+<!-- Non Account Holder See Login/Signup Info Below -->
+{% else %}
+    <div class="Signup">
+        <a class="options" href="{% url 'login' %}">Log In</a>
+        <a class="options" href="{% url 'signup' %}">Signup</a>
+    </div>
+{% endif %}
+
+{% endblock %}

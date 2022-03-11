@@ -2,13 +2,14 @@
 {% block title%} {{comment.user}} - {{comment.body}} {% endblock %}
 {% block content %}
 
-<strong>{{ comment.user }}</strong>
+<strong>{{ comment.user }} - {{comment.timestamp}}</strong>
 <hr>
 <p> {{comment.body}} </p> 
 <br>
 
 <a href="{% url 'social' %}" class="btn btn-primary">Back</a>
-
+<a href="{% url 'update-comment' comment.pk %} " type='button' class="btn btn-primary">Edit</a>
+<a href="{% url 'delete-comment' comment.pk %} " type='button' class="btn btn-danger">Delete</a>
 
 
 {% endblock %}

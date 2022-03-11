@@ -44,7 +44,7 @@ class SocialView(DetailView):
     template_name = 'social_detail.html'
 
 
-class AddCommentView(CreateView):
+class AddComment(CreateView):
     model = Comment
     form_class = CommentForm
     # fields = ['body']
@@ -53,11 +53,25 @@ class AddCommentView(CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super(AddCommentView, self).form_valid(form)
+        return super(AddComment, self).form_valid(form)
 
     def get_success_url(self):
         return reverse('social_detail', kwargs={'pk': self.object.pk})
     
+
+class UpdateComment(UpdateView):
+    model = Comment
+    template_name = 'update_comment.html'
+    # fields = ['body']
+    form_class = CommentForm
+    success_url = '/'
+
+
+class DeleteComment(DeleteView):
+    model = Comment
+    template_name = 'delete_comment.html'
+    success_url = '/'
+
 
 class MovieDetail(TemplateView):
     template_name = "movie_detail.html"

@@ -39,11 +39,15 @@ class HomeView(ListView):
     model = Comment
     template_name = 'social.html'
 
+
+@method_decorator(login_required, name="dispatch")
 class SocialView(DetailView):
     model = Comment
     template_name = 'social_detail.html'
 
 
+
+@method_decorator(login_required, name="dispatch")
 class AddComment(CreateView):
     model = Comment
     form_class = CommentForm
@@ -59,6 +63,8 @@ class AddComment(CreateView):
         return reverse('social_detail', kwargs={'pk': self.object.pk})
     
 
+
+@method_decorator(login_required, name="dispatch")
 class UpdateComment(UpdateView):
     model = Comment
     template_name = 'update_comment.html'
@@ -67,22 +73,30 @@ class UpdateComment(UpdateView):
     success_url = '/'
 
 
+
+@method_decorator(login_required, name="dispatch")
 class DeleteComment(DeleteView):
     model = Comment
     template_name = 'delete_comment.html'
     success_url = '/'
 
 
+
+@method_decorator(login_required, name="dispatch")
 class MovieDetail(TemplateView):
     template_name = "movie_detail.html"
 
                         # USER MODEL #
 # Watchlist
+
+@method_decorator(login_required, name="dispatch")
 class Watchlist(TemplateView):
     template_name="watchlist.html"
 
 
 # Profile
+
+@method_decorator(login_required, name="dispatch")
 class Profile(TemplateView):
     def get(self, request, pk, *args, **kwargs):
         return render(request, 'profile.html' )

@@ -3,9 +3,6 @@
 {% block content %}
 
 
-<!-- LOGIN/LOGOUT BUTTON -->
-{% if user.is_authenticated %}
-
 <h1 class="title">Delete Comment</h1>
 
 <h3>Delete: {{comment.body}} </h3>
@@ -21,13 +18,5 @@
     </form>
 </div>
 
-
-<!-- Non Account Holder See Login/Signup Info Below -->
-{% else %}
-    <div class="Signup">
-        <a class="options" href="{% url 'login' %}">Log In</a>
-        <a class="options" href="{% url 'signup' %}">Signup</a>
-    </div>
-{% endif %}
 
 {% endblock %}

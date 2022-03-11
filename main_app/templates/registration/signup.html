@@ -2,13 +2,20 @@
 {% block title%} Signup {% endblock %}
 {% block content %}
 
-<h1 class="title"> Sign Up For MovieThon! </h1>
-<form action="{% url 'signup' %}" method="post">
-    {% csrf_token %}
 
-    {{ form.as_p }}
-    <input type="submit" value="signup" />
-    <input type="hidden" name="next" value="{{ next }}" />
-</form>
+<div class="Container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10 col-cm-12 text-center">
+            <h1 class="display-2">Sign Up For MovieThon!</h1>
+            <form action="{% url 'signup' %}" method="post">
+                {% csrf_token %}
+            
+                {{ form.as_p }}
+                <button class="btn btn-dark">Signup</button>
+                <input type="hidden" name="next" value="{{ next }}" />
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

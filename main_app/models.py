@@ -20,6 +20,7 @@ class Comment(models.Model):
     body = models.TextField(max_length=350)
     user = models.ForeignKey(User, related_name='owner', on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now=True)
+    likes = models.ManyToManyField(User, related_name='social_comments')
 
     def __str__(self):
         return self.body
@@ -32,10 +33,4 @@ class Comment(models.Model):
 
 
 
-# Rate #
-# class Rate(models.Model):
-
-#     class Like(models.IntegerChoices):
-#         NO = 0
-#         YES = 1
 

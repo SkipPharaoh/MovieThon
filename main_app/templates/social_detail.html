@@ -5,11 +5,22 @@
 <strong>{{ comment.user }} - {{comment.timestamp}}</strong>
 <hr>
 <p> {{comment.body}} </p> 
+
+<form action="{% url 'like_comment' comment.pk %}" method="post">
+    {% csrf_token %}
+    <button type="submit" name="comment_id" value="{{ comment.id }}" class="btn btn-light btn-sm">
+        <img src="https://img.icons8.com/external-icongeek26-outline-icongeek26/20/000000/external-like-donation-and-charity-icongeek26-outline-icongeek26.png"/>
+    </button>
+</form>
+
 <br>
 
 <a href="{% url 'social' %}" class="btn btn-primary">Back</a>
+
+{% if user.id == comment.user.id %}
 <a href="{% url 'update-comment' comment.pk %} " type='button' class="btn btn-primary">Edit</a>
 <a href="{% url 'delete-comment' comment.pk %} " type='button' class="btn btn-danger">Delete</a>
+{% endif %}
 
 
 {% endblock %}

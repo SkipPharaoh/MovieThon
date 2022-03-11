@@ -14,7 +14,9 @@
             <p>{{ comment.body|slice:":200" }}</p>
             <small>
                 <a href="{% url 'social_detail' comment.pk %}">View Comment</a>
+                {% if user.id == comment.user.id %}
                 <a href="{% url 'update-comment' comment.pk %} " type='button'>Edit</a>
+                {% endif %}
             </small> 
         </li>
         <hr>

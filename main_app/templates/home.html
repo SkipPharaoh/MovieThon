@@ -5,9 +5,6 @@
 
 <!-- Account Holder See The Things Below -->
 {% if user.is_authenticated %}
-<!-- <div class="Welcome">
-    <span class="Message">Welcome: {{user.username}}</span>
-</div> -->
 
 
 <!-- Now Playing Section -->
@@ -18,14 +15,16 @@
     <div class="card-container">
 
         {% for i in res.results %}
-        <div class="card">
-            <img src="https://image.tmdb.org/t/p/w500{{i.poster_path}}" class="card-img" alt="In-Theatres Soon">
-            <div class="card-body">
-                <h2 class="name">{{i.title}}</h2>
-                <h6 class="des">{{i.overview}}</h6>
-                <button class="watchlist-btn">add to watchlist</button>
+        <a href="{% url 'movie_detail' i.id %}">
+            <div class="card">
+                <img src="https://image.tmdb.org/t/p/w500{{i.poster_path}}" class="card-img" alt="In-Theatres Soon">
+                <div class="card-body">
+                    <h2 class="name">{{i.title}}</h2>
+                    <h6 class="des">{{i.overview}}</h6>
+                    <button class="watchlist-btn">add to watchlist</button>
+                </div>
             </div>
-        </div>
+        </a>
         {% endfor%} 
         ...20+ more cards
     </div>
@@ -39,14 +38,16 @@
     <div class="card-container">
 
         {% for i in coming.results %}
-        <div class="card">
-            <img src="https://image.tmdb.org/t/p/w500{{i.poster_path}}" class="card-img" alt="In-Theatres Soon">
-            <div class="card-body">
-                <h2 class="name">{{i.title}}</h2>
-                <h6 class="des">{{i.overview}}</h6>
-                <button class="watchlist-btn">add to watchlist</button>
+        <a href="{% url 'movie_detail' i.id %}">
+            <div class="card">
+                <img src="https://image.tmdb.org/t/p/w500{{i.poster_path}}" class="card-img" alt="In-Theatres Soon">
+                <div class="card-body">
+                    <h2 class="name">{{i.title}}</h2>
+                    <h6 class="des">{{i.overview}}</h6>
+                    <button class="watchlist-btn">add to watchlist</button>
+                </div>
             </div>
-        </div>
+        </a>
         {% endfor%} 
         ...20+ more cards
     </div>
@@ -60,14 +61,16 @@
     <div class="card-container">
 
         {% for i in trend.results %}
-        <div class="card">
-            <img src="https://image.tmdb.org/t/p/w500{{i.poster_path}}" class="card-img" alt="Trending Movies">
-            <div class="card-body">
-                <h2 class="name">{{i.title}}</h2>
-                <h6 class="des">{{i.overview}}</h6>
-                <button class="watchlist-btn">add to watchlist</button>
+        <a href="{% url 'movie_detail' i.id %}">
+            <div class="card">
+                <img src="https://image.tmdb.org/t/p/w500{{i.poster_path}}" class="card-img" alt="Trending Movies">
+                <div class="card-body">
+                    <h2 class="name">{{i.title}}</h2>
+                    <h6 class="des">{{i.overview}}</h6>
+                    <button class="watchlist-btn">add to watchlist</button>
+                </div>
             </div>
-        </div>
+        </a>
         {% endfor%} 
         ...20+ more cards
     </div>

@@ -2,11 +2,54 @@
 {% block title%} Movie Detail {% endblock %}
 {% block content %}
 
-<strong>{{ info.user }} - {{info.timestamp}}</strong>
-<hr>
-<p> {{info.body}} </p> 
-<br>
 
-<a href="{% url 'social' %}" class="btn btn-primary">Back</a>
+
+
+
+<h1 class="title">{{info.original_title}}</h1>
+<div class="movies-list">
+    <div class="card-container">
+        <div class="card">
+            <img src="https://image.tmdb.org/t/p/w500{{info.backdrop_path}}" class="card-img" alt="In-Theatres Soon">
+            <div class="card-body">
+                <h2 class="name">{{info.original_title}} - {{info.tagline}}</h2>
+                <h6 class="des">
+                    <div>
+                        <a href="{{info.homepage}}" target='_blank' >Movie Website</a>
+                    </div>
+                    <br>
+                    Voter avg: {{info.vote_average}} - Total vote: {{info.vote_count}}
+                </h6>
+
+                <hr>
+
+                <button class="btn btn-dark">Add To Watchlist</button>
+                <a href="{% url 'home' %}" class="btn btn-primary">Back To Movies</a>
+
+                <hr>
+                
+                <h4 class="des"> <u>Overview</u> </h4>
+                <h6 class="des">{{info.overview}}</h6>
+                <h6 class="des">Runtime: {{info.runtime}} mins</h6>
+                <h6 class="des">Popularity: {{info.popularity}}</h6>
+                <h6 class="des">Budget: ${{info.budget}} - Revenue ${{info.revenue}}</h6>
+                <h6 class="des">Release Date: {{info.release_date}}</h6>
+                
+                <hr>
+                
+                <h6 class="des">Production Location: {{info.production_countries.0.name}}</h6>
+                <h6 class="des">Production Companies:</h6>
+                <div class="w-50 h-25 d-flex">
+                    {% for i in info.production_companies %}
+                    <div class="">
+                        <img class="img-thumbnail " src="https://image.tmdb.org/t/p/w500{{i.logo_path}}" alt="">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 {% endblock %}

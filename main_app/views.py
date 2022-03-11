@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView, ListView
@@ -26,7 +26,6 @@ load_dotenv()
 
 TMDB_API_KEY = os.getenv('TMDB_API_KEY')
 page = 1
-MovieID = 0
 
 # VIEWS #
                         # Movies #
@@ -86,12 +85,23 @@ class DeleteComment(DeleteView):
     success_url = '/'
 
 
+def LikeView(request, pk):
+    comment = get_object_or_404(Comment, id=request.POST.get('comment_id'))
+    comment.likes.add(request.user)
+    return HttpResponseRedirect(reverse('social_detail', args=[str(pk)]))
+
+
+
+
+
+
 
 @method_decorator(login_required, name="dispatch")
 class MovieDetail(TemplateView):
-    def movie_info(request):
-        info = requests.get(f"https://api.themoviedb.org/3/movie/{MovieID}?api_key={TMDB_API_KEY}")
-        return render(request, 'movie_detail.html', {'info': info, 'id': MovieID})
+    def get(self, request, *args, **kwargs):
+        id = kwargs.get('movie_id')
+        info = requests.get(f"https://api.themoviedb.org/3/movie/{id}?api_key={TMDB_API_KEY}").json()
+        return render(request, 'movie_detail.html', {'info': info})
     # template_name = "movie_detail.html"
 
                         # USER MODEL #

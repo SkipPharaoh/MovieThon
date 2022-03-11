@@ -17,7 +17,7 @@ class UserProfile(models.Model):
 
 class Comment(models.Model):
 
-    body = models.TextField(max_length=1000)
+    body = models.TextField(max_length=350)
     user = models.ForeignKey(User, related_name='owner', on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now=True)
 

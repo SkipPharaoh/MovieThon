@@ -1,19 +1,12 @@
 {% extends 'base.html'%}
 {% block title%} Movie Detail {% endblock %}
 {% block content %}
-<div class="detail__img">
-  <img src="{{}}" alt="{{}}" />
-</div>
-<div class="detail__name">
-  movie info
-  <div class="icon-text">
-    <span class="icon has-text-info">
-      <i class="fas fa-check-circle"></i>
-    </span>
-    <span>Verified</span>
-  </div>
-  Hi
-  <h1 class="title">name</h1>
-</div>
+
+<strong>{{ info.user }} - {{info.timestamp}}</strong>
+<hr>
+<p> {{info.body}} </p> 
+<br>
+
+<a href="{% url 'social' %}" class="btn btn-primary">Back</a>
 
 {% endblock %}

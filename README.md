@@ -7,7 +7,7 @@ A social media site built around those movies we just seen, we're extremely exci
 3) Trending
 
 ## Technology Used
-Django, PostgreSQL TailwindCSS, HTML, Netlify, & TMDB API
+Django, HTML, Bootstrap, PostgreSQL, Netlify, & TMDB API
 
 #### API
 You can find the TMDB API [here](https://www.themoviedb.org/documentation/api)

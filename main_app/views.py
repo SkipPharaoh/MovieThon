@@ -26,14 +26,19 @@ load_dotenv()
 
 TMDB_API_KEY = os.getenv('TMDB_API_KEY')
 page = 1
+MovieID = 0
 
 # VIEWS #
                         # Movies #
 # Home
     # FETCH REQUEST #
 def home(request):
-    data = requests.get(f"https://api.themoviedb.org/3/movie/now_playing?api_key={TMDB_API_KEY}&language=en-US&page={page}").json()
-    return render(request, 'home.html', {'res': data})
+    playing = requests.get(f"https://api.themoviedb.org/3/movie/now_playing?api_key={TMDB_API_KEY}&language=en-US&page={page}").json()
+
+    coming = requests.get(f"https://api.themoviedb.org/3/movie/upcoming?api_key={TMDB_API_KEY}&language=en-US&page={page}").json()
+
+    trending = requests.get(f"https://api.themoviedb.org/3/trending/all/day?api_key={TMDB_API_KEY}").json()
+    return render(request, 'home.html', {'res': playing, 'coming': coming, 'trend': trending})
 
 class HomeView(ListView):
     model = Comment
@@ -84,7 +89,10 @@ class DeleteComment(DeleteView):
 
 @method_decorator(login_required, name="dispatch")
 class MovieDetail(TemplateView):
-    template_name = "movie_detail.html"
+    def movie_info(request):
+        info = requests.get(f"https://api.themoviedb.org/3/movie/{MovieID}?api_key={TMDB_API_KEY}")
+        return render(request, 'movie_detail.html', {'info': info, 'id': MovieID})
+    # template_name = "movie_detail.html"
 
                         # USER MODEL #
 # Watchlist

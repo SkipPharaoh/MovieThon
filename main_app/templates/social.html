@@ -11,7 +11,7 @@
 <ul>
     {% for comment in object_list %}
         <li class="d-flex flex-column"> {{ comment.user }}
-            <p>{{ comment.body }}</p>
+            <p>{{ comment.body|slice:":200" }}</p>
             <small>
                 <a href="{% url 'social_detail' comment.pk %}">View Comment</a>
                 <a href="{% url 'update-comment' comment.pk %} " type='button'>Edit</a>

@@ -7,7 +7,7 @@ from django.views.generic import DetailView, ListView
 from django.contrib import messages
 from .models import Comment, UserProfile
 from django.urls import reverse
-from .forms import CommentForm
+from .forms import CommentForm, SignUpForm
 
 # IMPORTS RELATED TO SIGNUP
 from django.contrib.auth import login
@@ -143,7 +143,7 @@ class Profile(TemplateView):
 class Signup(View):
     # get request
     def get(self, request):
-        form = UserCreationForm() # comes from the auth.forms library - create a new form;
+        form = SignUpForm() # comes from the auth.forms library - create a new form;
 
         context = {'form': form}
         return render(request, "registration/signup.html", context)
@@ -151,13 +151,13 @@ class Signup(View):
 
     # post request
     def post(self, request):
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
 
         if form.is_valid():
             user = form.save() # save the user in the users table
             # login functionality
-            login(request, user)
-            return redirect('home')
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return redirect('social')
         else:
 
             context = {'form': form}

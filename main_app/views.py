@@ -120,7 +120,16 @@ class MovieDetail(TemplateView):
         id = kwargs.get('movie_id')
         info = requests.get(f"https://api.themoviedb.org/3/movie/{id}?api_key={TMDB_API_KEY}").json()
         return render(request, 'movie_detail.html', {'info': info})
-    # template_name = "movie_detail.html"
+
+
+class SearchResult(TemplateView):
+    def get(self, request, *args, **kwargs):
+        search_query = ''
+        search_query = request.GET['search']
+        result = requests.get(f"https://api.themoviedb.org/3/search/movie?api_key={TMDB_API_KEY}&query={search_query}").json()
+        return render (request, 'search_results.html', { 'result': result})
+
+
 
                         # USER MODEL #
 # Watchlist

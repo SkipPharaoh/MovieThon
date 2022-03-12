@@ -49,6 +49,18 @@ class SocialView(DetailView):
     model = Comment
     template_name = 'social_detail.html'
 
+    def get_context_data(self, *arg, **kwargs):
+        context = super(SocialView, self).get_context_data(**kwargs)
+        print(context)
+        info = get_object_or_404(Comment, id=self.kwargs['pk'])
+        total_likes = info.total_likes()
+        liked = False
+        if info.likes.filter(id=self.request.user.id).exists():
+            liked = True
+        context["total_likes"] = total_likes
+        context['liked'] = liked
+        return context
+
 
 
 @method_decorator(login_required, name="dispatch")
@@ -87,7 +99,13 @@ class DeleteComment(DeleteView):
 
 def LikeView(request, pk):
     comment = get_object_or_404(Comment, id=request.POST.get('comment_id'))
-    comment.likes.add(request.user)
+    liked = False
+    if comment.likes.filter(id=request.user.id).exists():
+        comment.likes.remove(request.user)
+        liked = False
+    else:
+        comment.likes.add(request.user)
+        liked = True
     return HttpResponseRedirect(reverse('social_detail', args=[str(pk)]))
 
 

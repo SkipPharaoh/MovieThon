@@ -20,6 +20,7 @@ class Comment(models.Model):
     body = models.TextField(max_length=350)
     user = models.ForeignKey(User, related_name='owner', on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now=True)
+    image = models.ImageField(null=True, blank=True, upload_to="images/")
     likes = models.ManyToManyField(User, related_name='social_comments')
 
     def total_likes(self):

@@ -5,6 +5,9 @@
 <strong>{{ comment.user }} - {{comment.timestamp}}</strong>
 <hr>
 <p> {{comment.body}} </p> 
+{% if comment.image %}
+    <img src="{{comment.image.url}}" alt="">
+{% endif %}
 
 <form action="{% url 'like_comment' comment.pk %}" method="post">
     {% csrf_token %}

@@ -18,7 +18,16 @@
 
 <ul>
     {% for comment in object_list %}
-        <li class="d-flex flex-column"> {{ comment.user }}
+        <li class="d-flex flex-column">
+            <div>
+                {% if comment.user.profile.image %}
+                <img src="/media/{{ comment.user.profile.image }}" alt="" width=48 height=48 class="rounded-circle"/>
+                {% else %}
+                <!-- <img src="https://img.icons8.com/nolan/48/test-account.png"/> -->
+                <img src="https://img.icons8.com/external-filled-outline-berkahicon/48/000000/external-account-email-marketing-filled-outline-berkahicon.png"/>
+                {% endif %}
+                {{ comment.user }}
+            </div>
             <p>{{ comment.body|slice:":200" }}</p>
             <small>
                 <a href="{% url 'social_detail' comment.pk %}">View Comment</a>

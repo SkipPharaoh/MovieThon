@@ -52,7 +52,6 @@ class SocialView(DetailView):
 
     def get_context_data(self, *arg, **kwargs):
         context = super(SocialView, self).get_context_data(**kwargs)
-        print(context)
         info = get_object_or_404(Comment, id=self.kwargs['pk'])
         total_likes = info.total_likes()
         liked = False

@@ -2,7 +2,12 @@
 {% block title%} {{comment.user}} - {{comment.body}} {% endblock %}
 {% block content %}
 
-<strong>{{ comment.user }} - {{comment.timestamp}}</strong>
+{% if comment.user.profile.image %}
+<img src="/media/{{ comment.user.profile.image }}" alt="" width=48 height=48 class="rounded-circle"/>
+{% else %}
+<img src="https://img.icons8.com/nolan/48/test-account.png"/>
+{%endif%}
+<strong> {{ comment.user }} - {{comment.timestamp}}</strong>
 <hr>
 <p> {{comment.body}} </p> 
 {% if comment.image %}

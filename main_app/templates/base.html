@@ -58,10 +58,22 @@
                             </svg>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'edit-profile' %}">Edit Profile</a></li>
+                            {% if user.profile.id %}
+                            <li><a class="dropdown-item" href="{% url 'user-profile' user.profile.id %}">Profile</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'edit-profile-page' user.profile.id %}">Edit Profile</a></li>
+
+                            {% else %}
+                            
+                            <li><a class="dropdown-item" href="{% url 'create-profile'%}">Create Profile</a></li>
+
+                            {% endif %}
                             <li><a class="dropdown-item" href="{% url 'add-comment' %}">Add Comment</a></li>
-                            <li><a class="dropdown-item" href="/admin">Settings</a></li>
+
+                            
                             <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'edit-settings' %}">Edit Settings</a></li>
+                            <li><a class="dropdown-item" href="/admin">Admin</a></li>
                             <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                         </ul>
                     </li>

@@ -1,20 +1,17 @@
 {% extends 'base.html'%}
-{% block title%} Profile {% endblock %}
+{% block title%} Edit Settings {% endblock %}
 {% block content %}
 
-<p>
-    this - {{ user.profile.city }}
 
-</p>
 <div class="Container">
     <div class="row justify-content-center mt-5">
         <div class="col-md-10 col-cm-12 text-center">
-            <h1 class="display-2"> Your MovieThon Profile </h1>
+            <h1 class="display-2"> Edit Your MovieThon Settings </h1>
             <form method="post">
                 {% csrf_token %}
             
                 {{ form.as_p }}
-                <button class="btn btn-dark"> Update Profile </button>
+                <button class="btn btn-dark"> Update Settings </button>
                 <input type="hidden" name="next" value="{{ next }}" />
             </form>
         </div>

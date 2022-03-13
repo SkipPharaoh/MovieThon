@@ -1,7 +1,27 @@
 from django import forms
-from .models import Comment
+from .models import Comment, UserProfile
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
+
+
+class ProfilePageForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('about', 'image', 'city', 'website', 'linkedin', 'twitter', 'tiktok', 'github', 'discord')
+
+        widgets = {
+            'about': forms.Textarea(attrs={'class': 'form-control'}),
+            # 'image': forms.Textarea(attrs={'class': 'form-control'}),
+            'city': forms.TextInput(attrs={'class': 'form-control'}),
+            'website': forms.TextInput(attrs={'class': 'form-control'}),
+            'linkedin': forms.TextInput(attrs={'class': 'form-control'}),
+            'twitter': forms.TextInput(attrs={'class': 'form-control'}),
+            'tiktok': forms.TextInput(attrs={'class': 'form-control'}),
+            'github': forms.TextInput(attrs={'class': 'form-control'}),
+            'discord': forms.TextInput(attrs={'class': 'form-control'})
+        }
+
+
 
 class CommentForm(forms.ModelForm):
     class Meta:

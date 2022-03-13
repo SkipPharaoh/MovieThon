@@ -7,7 +7,7 @@ from django.views.generic import DetailView, ListView
 from django.contrib import messages
 from .models import Comment, UserProfile
 from django.urls import reverse, reverse_lazy
-from .forms import CommentForm, SignUpForm, EditProfileForm, PasswordChanged
+from .forms import CommentForm, SignUpForm, EditProfileForm, PasswordChanged, ProfilePageForm
 from django.contrib.auth.views import PasswordChangeView
 
 # IMPORTS RELATED TO SIGNUP
@@ -110,10 +110,6 @@ def LikeView(request, pk):
 
 
 
-
-
-
-
 @method_decorator(login_required, name="dispatch")
 class MovieDetail(TemplateView):
     def get(self, request, *args, **kwargs):
@@ -141,12 +137,51 @@ class Watchlist(TemplateView):
 
 
 # Profile
+@method_decorator(login_required, name="dispatch")
+class ProfilePage(DetailView):
+    model = UserProfile
+    template_name = 'registration/profile.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProfilePage, self).get_context_data(*args, **kwargs)
+
+        user_page = get_object_or_404(UserProfile, id=self.kwargs['pk'])
+
+        context["user_page"] = user_page
+        return context
+
+
 
 @method_decorator(login_required, name="dispatch")
-class ProfileEdit(UpdateView):
-    form_class = EditProfileForm
-    template_name = 'registration/edit_profile.html'
+class CreateProfile(CreateView):
+    model = UserProfile
+    form_class = ProfilePageForm
+    template_name = 'registration/create_profile.html'
+    # fields = '__all__'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('user-profile', kwargs={'pk': self.object.pk})
+
+
+@method_decorator(login_required, name="dispatch")
+class EditProfilePage(UpdateView):
+    model = UserProfile
+    template_name = 'registration/profile_edit_page.html'
+    # fields = '__all__'
+    fields = [ 'about', 'image', 'city', 'website', 'linkedin', 'twitter', 'tiktok', 'github', 'discord']
     success_url = '/'
+
+
+
+@method_decorator(login_required, name="dispatch")
+class EditSettings(UpdateView):
+    form_class = EditProfileForm
+    template_name = 'registration/edit_settings.html'
+    success_url = '/profile'
 
     def get_object(self):
         return self.request.user
@@ -177,6 +212,7 @@ class Signup(View):
             return render(request, "registration/signup.html", context)
 
 
+@method_decorator(login_required, name="dispatch")
 class PasswordsChangeView(PasswordChangeView):
     form_class = PasswordChanged
     template_name= 'registration/change-password.html'

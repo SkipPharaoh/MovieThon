@@ -6,7 +6,15 @@
 <!-- LOGIN/LOGOUT BUTTON -->
 {% if user.is_authenticated %}
 
-<h1 class="title">Comments</h1>
+<div class="text-center">
+    <h1 class="title">Comments</h1>
+</div>
+
+<div class="d-flex justify-content-center">
+    <a class="btn btn-info" href="{% url 'add-comment' %}">Add Comment</a>
+</div>
+
+<hr>
 
 <ul>
     {% for comment in object_list %}
@@ -39,5 +47,6 @@
         </div>
     </div>
 {% endif %}
+
 
 {% endblock %}

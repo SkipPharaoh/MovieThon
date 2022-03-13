@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     path('', views.HomeView.as_view(), name='social'),
     path('movies/', views.home, name="home"),
@@ -13,6 +14,9 @@ urlpatterns = [
 
     path('search/', views.SearchResult.as_view(), name="search"),
     path('profile/<int:pk>/watchlist', views.Watchlist.as_view(), name='watchlist'),
-    path('profile/<int:pk>/', views.Profile.as_view(), name='profile'),
+    path('profile/', views.ProfileEdit.as_view(), name='edit-profile'),
     path('accounts/signup/', views.Signup.as_view(), name='signup'),
+
+    path('password/', views.PasswordsChangeView.as_view()),
+    path('updated-password/', views.password_success, name='password-success'),
 ]

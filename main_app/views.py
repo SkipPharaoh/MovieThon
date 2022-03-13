@@ -6,12 +6,13 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView, ListView
 from django.contrib import messages
 from .models import Comment, UserProfile
-from django.urls import reverse
-from .forms import CommentForm, SignUpForm
+from django.urls import reverse, reverse_lazy
+from .forms import CommentForm, SignUpForm, EditProfileForm, PasswordChanged
+from django.contrib.auth.views import PasswordChangeView
 
 # IMPORTS RELATED TO SIGNUP
 from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 
 # Authorization decorators:
 from django.contrib.auth.decorators import login_required
@@ -122,6 +123,7 @@ class MovieDetail(TemplateView):
         return render(request, 'movie_detail.html', {'info': info})
 
 
+@method_decorator(login_required, name="dispatch")
 class SearchResult(TemplateView):
     def get(self, request, *args, **kwargs):
         search_query = ''
@@ -142,10 +144,13 @@ class Watchlist(TemplateView):
 # Profile
 
 @method_decorator(login_required, name="dispatch")
-class Profile(TemplateView):
-    def get(self, request, pk, *args, **kwargs):
-        return render(request, 'profile.html' )
+class ProfileEdit(UpdateView):
+    form_class = EditProfileForm
+    template_name = 'registration/edit_profile.html'
+    success_url = '/'
 
+    def get_object(self):
+        return self.request.user
 
 
 # Signup
@@ -171,3 +176,12 @@ class Signup(View):
 
             context = {'form': form}
             return render(request, "registration/signup.html", context)
+
+
+class PasswordsChangeView(PasswordChangeView):
+    form_class = PasswordChanged
+    template_name= 'registration/change-password.html'
+    success_url = '/updated-password/'
+
+def password_success(request):
+    return render(request, 'registration/password_success.html')

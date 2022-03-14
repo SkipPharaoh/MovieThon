@@ -7,7 +7,7 @@ from django.views.generic import DetailView, ListView
 from django.contrib import messages
 from .models import Comment, UserProfile, CommentSection, Watchlist
 from django.urls import reverse, reverse_lazy
-from .forms import CommentForm, SignUpForm, EditProfileForm, PasswordChanged, ProfilePageForm, AddCommentForm
+from .forms import CommentForm, SignUpForm, EditProfileForm, PasswordChanged, ProfilePageForm, AddCommentForm, AddWatchlist
 from django.contrib.auth.views import PasswordChangeView
 
 # IMPORTS RELATED TO SIGNUP
@@ -144,30 +144,54 @@ class SearchResult(TemplateView):
 
 
 
+
+
+
+
+
+
+
                         # USER MODEL #
 # Watchlist
 
 @method_decorator(login_required, name="dispatch")
 class WatchlistView(TemplateView):
     model = Watchlist
+    form_class = AddWatchlist
     template_name = 'watchlist.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super(WatchlistView, self).get_context_data(*args, **kwargs)
-
         user_page = get_object_or_404(UserProfile, id=self.kwargs['pk'])
-
         context["user_page"] = user_page
         return context
-
-    # def watchlist(self, request, *args, **kwargs):
-    #     id = kwargs.get('movie_id')
-    #     return render (request, "watchlist.html")
     
     # def form_valid(self, form, *args, **kwargs):
+    #     id = kwargs.get('movie_id')
+    #     print(id)
     #     form.instance.user = self.request.user
-    #     form.instance.movie_id = self.kwargs['pk']
+    #     form.instance.movie_id = id
     #     return super().form_valid(form)
+    
+    # def get_success_url(self):
+    #     return HttpResponseRedirect(reverse('movie_detail', args=[str(pk)]))
+
+def AddWatchlistView(request, pk):
+    movie = get_object_or_404(Watchlist, id=request.POST.get('movie_id'))
+    # added = False
+    # if movie.likes.filter(id=request.user.id).exists():
+    #     comment.likes.remove(request.user)
+    #     added = False
+    # else:
+    #     comment.likes.add(request.user)
+    #     added = True
+    return HttpResponseRedirect(reverse('movie_detail', args=[str(pk)]))
+
+
+
+
+
+
 
 
 

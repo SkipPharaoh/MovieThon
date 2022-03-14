@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment, UserProfile, CommentSection
+from .models import Comment, UserProfile, CommentSection, Watchlist
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 
@@ -78,3 +78,8 @@ class AddCommentForm(forms.ModelForm):
         widget = {
             'body': forms.Textarea(attrs={'class': 'form-control'})
         }
+
+class AddWatchlist(forms.ModelForm):
+    class Meta:
+        model = Watchlist
+        fields = ('user', 'movie_id')

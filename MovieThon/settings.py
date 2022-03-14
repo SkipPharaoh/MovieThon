@@ -50,12 +50,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'Main_app',
 
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
 
-    'Main_app',
 ]
 
 SITE_ID = 1

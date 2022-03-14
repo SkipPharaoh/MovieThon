@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment, UserProfile
+from .models import Comment, UserProfile, CommentSection
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 
@@ -69,3 +69,12 @@ class PasswordChanged(PasswordChangeForm):
     class Meta:
         model = User
         fields = ('old_password', 'new_password1', 'new_password')
+
+class AddCommentForm(forms.ModelForm):
+    class Meta:
+        model = CommentSection
+        fields = ('image','body',)
+
+        widget = {
+            'body': forms.Textarea(attrs={'class': 'form-control'})
+        }

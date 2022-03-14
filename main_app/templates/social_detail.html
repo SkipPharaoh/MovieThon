@@ -34,7 +34,35 @@
         {{total_likes}}
 </form>
 
-<br>
+<hr>
+
+<h2>Comments...</h2>
+{% if not comment.comments.all %}
+    No Comments Yet... 
+    <a href="{% url 'comment-on-post' comment.pk%}" type='button' class="btn btn-primary">Comment</a>
+{% else %}
+
+
+    {% for comment in comment.comments.all%}
+        
+
+        <strong>
+            {{comment.name }} - {{comment.date_added}}
+        </strong> 
+        <br>
+        {% if comment.image %}
+            <img src="{{ comment.image.url }}" alt=""/> 
+        {%endif%}
+        <br>
+        {{comment.body}}
+        <br>
+        <br>
+    {% endfor %}
+
+    <a href="{% url 'comment-on-post' comment.pk%}" type='button' class="btn btn-primary">Comment</a>
+{% endif %}
+
+<hr>
 
 <a href="{% url 'social' %}" class="btn btn-primary">Back</a>
 
@@ -43,5 +71,8 @@
 <a href="{% url 'delete-comment' comment.pk %} " type='button' class="btn"><img src="https://img.icons8.com/ios-filled/20/000000/full-trash--v2.png"/></a>
 {% endif %}
 
-
 {% endblock %}
+
+
+
+

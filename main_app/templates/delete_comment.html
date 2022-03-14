@@ -5,7 +5,7 @@
 {% if user.id == comment.user.id %}
 <h1 class="title">Delete Comment</h1>
 
-<h3>Delete: {{comment.body}} </h3>
+<h3>{{comment.body}} </h3>
 <div class="form-group">
     <form action="" method="post">
         {% csrf_token %}

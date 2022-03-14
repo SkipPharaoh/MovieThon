@@ -41,6 +41,19 @@ class Comment(models.Model):
     class Meta:
         ordering = ['-timestamp']
 
+class CommentSection(models.Model):
+    comment = models.ForeignKey(Comment, related_name="comments", on_delete=models.CASCADE)
+    name = models.ForeignKey(User, on_delete=models.CASCADE)
+    body = models.TextField()
+    image = models.ImageField(null=True, blank=True, upload_to="images/")
+    date_added = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(User, blank=True, related_name='comment_likes')
+
+    def total_likes(self):
+        return self.likes.count()
+    
+    def __str__(self):
+        return '%s - %s' % (self.comment.body, self.name)
 
 
 

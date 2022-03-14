@@ -5,9 +5,9 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView, ListView
 from django.contrib import messages
-from .models import Comment, UserProfile
+from .models import Comment, UserProfile, CommentSection
 from django.urls import reverse, reverse_lazy
-from .forms import CommentForm, SignUpForm, EditProfileForm, PasswordChanged, ProfilePageForm
+from .forms import CommentForm, SignUpForm, EditProfileForm, PasswordChanged, ProfilePageForm, AddCommentForm
 from django.contrib.auth.views import PasswordChangeView
 
 # IMPORTS RELATED TO SIGNUP
@@ -77,6 +77,20 @@ class AddComment(CreateView):
 
     def get_success_url(self):
         return reverse('social_detail', kwargs={'pk': self.object.pk})
+
+
+
+@method_decorator(login_required, name="dispatch")
+class CommentOnPost(CreateView):
+    model = CommentSection
+    form_class = AddCommentForm
+    template_name = 'thread_comment.html'
+    success_url = '/'
+
+    def form_valid(self, form, *args, **kwargs):
+        form.instance.comment_id = self.kwargs['pk']
+        form.instance.name = self.request.user
+        return super().form_valid(form)
     
 
 

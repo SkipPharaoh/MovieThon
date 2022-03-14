@@ -4,6 +4,19 @@ from django.urls import reverse
 import time
 
 # Create your models here.
+
+class Watchlist(models.Model):
+
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    movie_id = models.IntegerField()
+    time_added = models.DateTimeField(auto_now_add=True)
+
+    def get(self):
+        return self.movie_id
+
+    class Meta:
+        ordering = ['-time_added']
+
 class UserProfile(models.Model):
 
     user = models.OneToOneField(User, null=True, related_name='profile', unique=True, on_delete=models.CASCADE)

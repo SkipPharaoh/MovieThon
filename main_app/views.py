@@ -5,7 +5,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView, ListView
 from django.contrib import messages
-from .models import Comment, UserProfile, CommentSection
+from .models import Comment, UserProfile, CommentSection, Watchlist
 from django.urls import reverse, reverse_lazy
 from .forms import CommentForm, SignUpForm, EditProfileForm, PasswordChanged, ProfilePageForm, AddCommentForm
 from django.contrib.auth.views import PasswordChangeView
@@ -91,7 +91,7 @@ class CommentOnPost(CreateView):
         form.instance.comment_id = self.kwargs['pk']
         form.instance.name = self.request.user
         return super().form_valid(form)
-        
+
     def get_success_url(self):
         return reverse('social_detail', kwargs={'pk': self.object.pk})  
 
@@ -148,8 +148,27 @@ class SearchResult(TemplateView):
 # Watchlist
 
 @method_decorator(login_required, name="dispatch")
-class Watchlist(TemplateView):
-    template_name="watchlist.html"
+class WatchlistView(TemplateView):
+    model = Watchlist
+    template_name = 'watchlist.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(WatchlistView, self).get_context_data(*args, **kwargs)
+
+        user_page = get_object_or_404(UserProfile, id=self.kwargs['pk'])
+
+        context["user_page"] = user_page
+        return context
+
+    # def watchlist(self, request, *args, **kwargs):
+    #     id = kwargs.get('movie_id')
+    #     return render (request, "watchlist.html")
+    
+    # def form_valid(self, form, *args, **kwargs):
+    #     form.instance.user = self.request.user
+    #     form.instance.movie_id = self.kwargs['pk']
+    #     return super().form_valid(form)
+
 
 
 # Profile

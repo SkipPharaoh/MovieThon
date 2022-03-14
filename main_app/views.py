@@ -91,7 +91,9 @@ class CommentOnPost(CreateView):
         form.instance.comment_id = self.kwargs['pk']
         form.instance.name = self.request.user
         return super().form_valid(form)
-    
+        
+    def get_success_url(self):
+        return reverse('social_detail', kwargs={'pk': self.object.pk})  
 
 
 @method_decorator(login_required, name="dispatch")
